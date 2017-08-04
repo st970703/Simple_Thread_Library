@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name        : OSA1.c
+Name        : OSA1.1.c
 Author      : Robert Sheehan
 Version     : 1.0
 Description : Single thread implementation.
