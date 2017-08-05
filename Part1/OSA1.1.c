@@ -116,17 +116,26 @@ Thread createThread(void (startFunc)()) {
 }
 
 //todo
-/* Add a scheduler function called scheduler to choose the next thread to run.
- * You need to ensure that all thread states are correct.
- * e.g. Threads which have completed have their state changed to FINISHED,
- * threads which are waiting to run are READY and only the currently executing thread is RUNNING.*/
+/*
+* Add a scheduler function called scheduler to choose the next thread to run.
+* You need to ensure that all thread states are correct.
+* e.g. Threads which have completed have their state changed to FINISHED,
+* threads which are waiting to run are READY and only the currently executing thread is RUNNING.
+*/
 scheduler() {}
 
 //todo
-/* Add a new function printThreadStates which prints out the thread ids
- * and the state of each thread in the order they were created.
- * The const NUMTHREADS is the number of threads created.*/
-printThreadStates() {}
+/*
+* Add a new function printThreadStates which prints out the thread ids
+* and the state of each thread in the order they were created.
+* The const NUMTHREADS is the number of threads created.
+*/
+printThreadStates(Thread threads[]) {
+	for (int i = 0; i < sizeof(threads); i ++) {
+		printf("%i\n", threads[i].tid);
+		printf("%s\n", threads[i].state);
+	}
+}
 
 int main(void) {
 	struct thread controller;
