@@ -52,7 +52,7 @@ void printThreadStates(Thread *threads, int length) {
 Thread scheduler(Thread thread) {
 	int lastNode = 0;
 	if (thread->prev->tid == thread->tid) {
-		if (thread->next->tid) {
+		if (thread->next->tid == thread->tid) {
 			lastNode = 1;
 		}
 	}
@@ -73,7 +73,7 @@ void switcher(Thread prevThread, Thread nextThread) {
 		prevThread->prev->next = prevThread->next;
 		prevThread->next->prev = prevThread->prev;
 
-nextThread->state = RUNNING;
+		nextThread->state = RUNNING;
 		printf("\ndisposing %d\n", prevThread->tid);
 		free(prevThread->stackAddr); // Wow!
 		longjmp(nextThread->environment, 1);

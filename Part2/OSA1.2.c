@@ -24,10 +24,17 @@ struct sigaction setUpAction;
 const char* state_t[] = { "SETUP", "RUNNING", "READY", "FINISHED" };
 const char* state_t_lower[] = {  "setup", "running", "ready", "finished" };
 Thread threads[100];
+Thread currentThread; // the thread currently running
 
 //todo
+/*
+* Add a threadYield function to OSA1.2.c which will call the scheduler.
+* This should immediately stop the current thread from running
+* and start up the next READY thread in the circular linked list.
+* If the current thread is the only existing READY thread then it continues.
+*/
 void threadYield() {
-
+	scheduler(currentThread);
 }
 
 //todo
@@ -57,7 +64,7 @@ void printThreadStates(Thread *threads, int length) {
 Thread scheduler(Thread thread) {
 	int lastNode = 0;
 	if (thread->prev->tid == thread->tid) {
-		if (thread->next->tid) {
+		if (thread->next->tid == thread->tid) {
 			lastNode = 1;
 		}
 	}
@@ -73,12 +80,14 @@ Thread scheduler(Thread thread) {
 * Switches execution from prevThread to nextThread.
 */
 void switcher(Thread prevThread, Thread nextThread) {
+	currentThread = prevThread;
+
 	if (prevThread->state == FINISHED) { // it has finished
 		//remove this finished thread by changing links
 		prevThread->prev->next = prevThread->next;
 		prevThread->next->prev = prevThread->prev;
 
-nextThread->state = RUNNING;
+		nextThread->state = RUNNING;
 		printf("\ndisposing %d\n", prevThread->tid);
 		free(prevThread->stackAddr); // Wow!
 		longjmp(nextThread->environment, 1);
