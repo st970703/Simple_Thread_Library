@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name        : OSA1.c
+Name        : OSA1.2.c
 Author      : Robert Sheehan
 Version     : 1.0
 Description : Single thread implementation.
@@ -16,7 +16,7 @@ UPI: elee353
 #include <unistd.h>
 
 #include "littleThread.h"
-#include "threads1.c" // rename this for different threads
+#include "threads2.c" // rename this for different threads
 
 Thread newThread; // the thread currently being set up
 Thread mainThread; // the main thread
@@ -24,6 +24,11 @@ struct sigaction setUpAction;
 const char* state_t[] = { "SETUP", "RUNNING", "READY", "FINISHED" };
 const char* state_t_lower[] = {  "setup", "running", "ready", "finished" };
 Thread threads[100];
+
+//todo
+void threadYield() {
+
+}
 
 //todo
 /*
