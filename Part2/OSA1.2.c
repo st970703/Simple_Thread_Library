@@ -28,17 +28,6 @@ Thread currentThread; // the thread currently running
 
 //todo
 /*
-* Add a threadYield function to OSA1.2.c which will call the scheduler.
-* This should immediately stop the current thread from running
-* and start up the next READY thread in the circular linked list.
-* If the current thread is the only existing READY thread then it continues.
-*/
-void threadYield() {
-	scheduler(currentThread);
-}
-
-//todo
-/*
 * Add a new function printThreadStates which prints out the thread ids
 * and the state of each thread in the order they were created.
 * The const NUMTHREADS is the number of threads created.
@@ -62,6 +51,7 @@ void printThreadStates(Thread *threads, int length) {
 * threads which are waiting to run are READY and only the currently executing thread is RUNNING.
 */
 Thread scheduler(Thread thread) {
+	currentThread = thread;
 	int lastNode = 0;
 	if (thread->prev->tid == thread->tid) {
 		if (thread->next->tid == thread->tid) {
@@ -87,6 +77,7 @@ void switcher(Thread prevThread, Thread nextThread) {
 		prevThread->prev->next = prevThread->next;
 		prevThread->next->prev = prevThread->prev;
 
+currentThread = nextThread;
 		nextThread->state = RUNNING;
 		printf("\ndisposing %d\n", prevThread->tid);
 		free(prevThread->stackAddr); // Wow!
@@ -94,8 +85,23 @@ void switcher(Thread prevThread, Thread nextThread) {
 	} else if (setjmp(prevThread->environment) == 0) { // so we can come back here
 		prevThread->state = READY;
 		nextThread->state = RUNNING;
-		//printf("scheduling %d\n", nextThread->tid);
+currentThread = nextThread;
+
 		longjmp(nextThread->environment, 1);
+	}
+}
+
+//todo
+/*
+* Add a threadYield function to OSA1.2.c which will call the scheduler.
+* This should immediately stop the current thread from running
+* and start up the next READY thread in the circular linked list.
+* If the current thread is the only existing READY thread then it continues.
+*/
+void threadYield() {
+	if (currentThread->next->state == READY) {
+		Thread tempThread = scheduler(currentThread);
+		switcher(currentThread,tempThread);
 	}
 }
 
