@@ -71,21 +71,41 @@ Thread scheduler(Thread thread) {
 */
 void switcher(Thread prevThread, Thread nextThread) {
 	currentThread = prevThread;
+	/*If the current thread is the only existing READY thread
+	then it continues.*/
+	if (currentThread->state == READY) {
+		if (currentThread->next->tid == currentThread->tid) {
+			if ((currentThread->prev->tid == currentThread->tid)) {
+				return; // don't switch
+			}
+		}
+	}
 
 	if (prevThread->state == FINISHED) { // it has finished
+
 		//remove this finished thread by changing links
 		prevThread->prev->next = prevThread->next;
 		prevThread->next->prev = prevThread->prev;
 
-currentThread = nextThread;
+//start next new thread
+		currentThread = nextThread;
+
 		nextThread->state = RUNNING;
 		printf("\ndisposing %d\n", prevThread->tid);
 		free(prevThread->stackAddr); // Wow!
+		if (currentThread != mainThread) {
+			printThreadStates(threads, NUMTHREADS);
+		}
+
 		longjmp(nextThread->environment, 1);
 	} else if (setjmp(prevThread->environment) == 0) { // so we can come back here
+
 		prevThread->state = READY;
 		nextThread->state = RUNNING;
-currentThread = nextThread;
+		// re-run current thread
+		currentThread = nextThread;
+
+		printThreadStates(threads, NUMTHREADS);
 
 		longjmp(nextThread->environment, 1);
 	}
@@ -100,6 +120,7 @@ currentThread = nextThread;
 */
 void threadYield() {
 	if (currentThread->next->state == READY) {
+		//re-schedule current thread
 		Thread tempThread = scheduler(currentThread);
 		switcher(currentThread,tempThread);
 	}
@@ -114,7 +135,7 @@ void associateStack(int signum) {
 	Thread localThread = newThread; // what if we don't use this local variable?
 	localThread->state = READY; // now it has its stack
 	if (setjmp(localThread->environment) != 0) { // will be zero if called directly
-		printThreadStates(threads, NUMTHREADS);
+
 		(localThread->start)();
 		localThread->state = FINISHED;
 

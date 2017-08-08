@@ -80,7 +80,7 @@ void switcher(Thread prevThread, Thread nextThread) {
 	} else if (setjmp(prevThread->environment) == 0) { // so we can come back here
 		prevThread->state = READY;
 		nextThread->state = RUNNING;
-		//printf("scheduling %d\n", nextThread->tid);
+
 		longjmp(nextThread->environment, 1);
 	}
 }
