@@ -1,0 +1,3 @@
+/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/Making_Threads.dir
