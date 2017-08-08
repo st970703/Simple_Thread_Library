@@ -14,8 +14,13 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="Part1" displayName="Part1" projectFiles="true">
+        <itemPath>Part1/.runOSA1.1.sh.swp</itemPath>
+        <itemPath>Part1/OSA1</itemPath>
+        <itemPath>Part1/OSA1.1</itemPath>
+        <itemPath>Part1/OSA1.1.backup.c</itemPath>
         <itemPath>Part1/OSA1.1.c</itemPath>
         <itemPath>Part1/littleThread.h</itemPath>
+        <itemPath>Part1/runOSA1.1.sh</itemPath>
         <itemPath>Part1/threads1.c</itemPath>
       </logicalFolder>
       <logicalFolder name="Part2" displayName="Part2" projectFiles="true">
@@ -59,9 +64,19 @@
       </compileType>
       <item path="OSA1.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="Part1/.runOSA1.1.sh.swp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/OSA1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/OSA1.1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/OSA1.1.backup.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="Part1/OSA1.1.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Part1/littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/runOSA1.1.sh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Part1/threads1.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -102,9 +117,19 @@
       </compileType>
       <item path="OSA1.c" ex="false" tool="0" flavor2="0">
       </item>
+      <item path="Part1/.runOSA1.1.sh.swp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/OSA1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/OSA1.1" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/OSA1.1.backup.c" ex="false" tool="0" flavor2="0">
+      </item>
       <item path="Part1/OSA1.1.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="Part1/littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/runOSA1.1.sh" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Part1/threads1.c" ex="false" tool="0" flavor2="0">
       </item>

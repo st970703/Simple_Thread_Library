@@ -4,6 +4,26 @@ Name        : OSA1.c
 Author      : Robert Sheehan
 Version     : 1.0
 Description : Single thread implementation.
+
+Editor: En-Yu Mike Lee
+UPI: elee353
+============================================================================
+You have to change the code
+so that if multiple threads are created
+they will be switched between as each thread finishes.
+There is no pre-emption.
+After all threads have finished, execution returns to the main function and
+the process stops.
+You can change the existing code in any way you like
+as long as it still works in the same
+way.
+You will certainly have to change the switcher function.
+You should keep all created threads in a circular linked list
+(that is what the prev and next pointers are for in the thread struct).
+You will need to keep track of the current thread
+(the thread currently running), this will initially be the first thread created.
+Always insert new threads at the end of the list.
+Each thread must have a unique thread identifier.
 ============================================================================
 */
 
@@ -18,8 +38,6 @@ Description : Single thread implementation.
 Thread newThread; // the thread currently being set up
 Thread mainThread; // the main thread
 struct sigaction setUpAction;
-const char* state_t[] = { "SETUP", "RUNNING", "READY", "FINISHED" };
-
 
 /*
 * Switches execution from prevThread to nextThread.
@@ -119,17 +137,19 @@ Thread createThread(void (startFunc)()) {
 //    for (int i = 0; i < length; i++) { /* whatever */ }
 //}
 void printThreadStates(Thread *threads, int length) {
-	for (int i = 0; i < length; i ++) {
-		printf("Thread%i\n",i);
-		printf("tid = %i\n", threads[i]->tid);
-		int state_no = threads[i]->state;
-		printf("state = %s\n", state_t[state_no]);
+	for (int i = 0; i < sizeof(threads); i ++) {
+		printf("%i\n", threads[i]->tid);
+		printf("%i\n", threads[i]->state);
 	}
 }
 
 int main(void) {
 	struct thread controller;
 	Thread threads[NUMTHREADS];
+        //test
+        //int n = sizeof(threads) / sizeof(Thread);
+        printThreadStates(threads, 2);
+        
 	mainThread = &controller;
 	mainThread->state = RUNNING;
 	setUpStackTransfer();
@@ -140,9 +160,5 @@ int main(void) {
 	puts("switching to first thread");
 	switcher(mainThread, threads[0]);
 	puts("back to the main thread");
-
-	//test
-	printThreadStates(threads, NUMTHREADS);
-
 	return EXIT_SUCCESS;
 }
