@@ -19,7 +19,7 @@ Thread newThread; // the thread currently being set up
 Thread mainThread; // the main thread
 struct sigaction setUpAction;
 const char* state_t[] = { "SETUP", "RUNNING", "READY", "FINISHED" };
-
+const char* state_t_lower[] = {  "setup", "running", "ready", "finished" };
 
 /*
 * Switches execution from prevThread to nextThread.
@@ -104,9 +104,9 @@ Thread createThread(void (startFunc)()) {
 * e.g. Threads which have completed have their state changed to FINISHED,
 * threads which are waiting to run are READY and only the currently executing thread is RUNNING.
 */
-//Thread scheduler(Thread thread) {
-//    return thread;
-//}
+Thread scheduler(Thread *thread) {
+	return thread;
+}
 
 //todo
 /*
@@ -114,16 +114,13 @@ Thread createThread(void (startFunc)()) {
 * and the state of each thread in the order they were created.
 * The const NUMTHREADS is the number of threads created.
 */
-//(int *array, int length)
-//{
-//    for (int i = 0; i < length; i++) { /* whatever */ }
-//}
 void printThreadStates(Thread *threads, int length) {
+	printf("Thread States\n");
+	printf("=============\n");
+
 	for (int i = 0; i < length; i ++) {
-		printf("Thread%i\n",i);
-		printf("tid = %i\n", threads[i]->tid);
 		int state_no = threads[i]->state;
-		printf("state = %s\n", state_t[state_no]);
+		printf("threadID: %i state:%s\n", threads[i]->tid, state_t_lower[state_no]);
 	}
 }
 
