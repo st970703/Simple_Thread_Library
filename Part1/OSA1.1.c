@@ -105,6 +105,7 @@ Thread createThread(void (startFunc)()) {
 * threads which are waiting to run are READY and only the currently executing thread is RUNNING.
 */
 Thread scheduler(Thread *thread) {
+
 	return thread;
 }
 
@@ -115,13 +116,14 @@ Thread scheduler(Thread *thread) {
 * The const NUMTHREADS is the number of threads created.
 */
 void printThreadStates(Thread *threads, int length) {
-	printf("Thread States\n");
+	printf("\nThread States\n");
 	printf("=============\n");
 
 	for (int i = 0; i < length; i ++) {
 		int state_no = threads[i]->state;
 		printf("threadID: %i state:%s\n", threads[i]->tid, state_t_lower[state_no]);
 	}
+	printf("\n");
 }
 
 int main(void) {
@@ -134,12 +136,15 @@ int main(void) {
 	for (int t = 0; t < NUMTHREADS; t++) {
 		threads[t] = createThread(threadFuncs[t]);
 	}
+	//test
+	printThreadStates(threads, NUMTHREADS);
+	//
 	puts("switching to first thread");
 	switcher(mainThread, threads[0]);
 	puts("back to the main thread");
 
 	//test
 	printThreadStates(threads, NUMTHREADS);
-
+	//
 	return EXIT_SUCCESS;
 }
