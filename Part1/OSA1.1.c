@@ -20,19 +20,64 @@ Thread mainThread; // the main thread
 struct sigaction setUpAction;
 const char* state_t[] = { "SETUP", "RUNNING", "READY", "FINISHED" };
 const char* state_t_lower[] = {  "setup", "running", "ready", "finished" };
+Thread threads[100];
+
+//todo
+/*
+* Add a new function printThreadStates which prints out the thread ids
+* and the state of each thread in the order they were created.
+* The const NUMTHREADS is the number of threads created.
+*/
+void printThreadStates(Thread *threads, int length) {
+	printf("\nThread States\n");
+	printf("=============\n");
+
+	for (int i = 0; i < length; i ++) {
+		int state_no = threads[i]->state;
+		printf("threadID: %i state:%s\n", threads[i]->tid, state_t_lower[state_no]);
+	}
+	printf("\n");
+}
+
+//todo
+/*
+* Add a scheduler function called scheduler to choose the next thread to run.
+* You need to ensure that all thread states are correct.
+* e.g. Threads which have completed have their state changed to FINISHED,
+* threads which are waiting to run are READY and only the currently executing thread is RUNNING.
+*/
+Thread scheduler(Thread thread) {
+	int lastNode = 0;
+	if (thread->prev->tid == thread->tid) {
+		if (thread->next->tid) {
+			lastNode = 1;
+		}
+	}
+
+	if (lastNode){
+		return mainThread;
+	} else {
+		return thread->next;
+	}
+}
 
 /*
 * Switches execution from prevThread to nextThread.
 */
 void switcher(Thread prevThread, Thread nextThread) {
 	if (prevThread->state == FINISHED) { // it has finished
+		//remove this finished thread by changing links
+		prevThread->prev->next = prevThread->next;
+		prevThread->next->prev = prevThread->prev;
+
+nextThread->state = RUNNING;
 		printf("\ndisposing %d\n", prevThread->tid);
 		free(prevThread->stackAddr); // Wow!
 		longjmp(nextThread->environment, 1);
 	} else if (setjmp(prevThread->environment) == 0) { // so we can come back here
 		prevThread->state = READY;
 		nextThread->state = RUNNING;
-		printf("scheduling %d\n", nextThread->tid);
+		//printf("scheduling %d\n", nextThread->tid);
 		longjmp(nextThread->environment, 1);
 	}
 }
@@ -46,9 +91,12 @@ void associateStack(int signum) {
 	Thread localThread = newThread; // what if we don't use this local variable?
 	localThread->state = READY; // now it has its stack
 	if (setjmp(localThread->environment) != 0) { // will be zero if called directly
+		printThreadStates(threads, NUMTHREADS);
 		(localThread->start)();
 		localThread->state = FINISHED;
-		switcher(localThread, mainThread); // at the moment back to the main thread
+
+		Thread nextThread = scheduler(localThread);
+		switcher(localThread, nextThread); // at the moment back to the main thread
 	}
 }
 
@@ -97,38 +145,29 @@ Thread createThread(void (startFunc)()) {
 	return thread;
 }
 
-//todo
 /*
-* Add a scheduler function called scheduler to choose the next thread to run.
-* You need to ensure that all thread states are correct.
-* e.g. Threads which have completed have their state changed to FINISHED,
-* threads which are waiting to run are READY and only the currently executing thread is RUNNING.
+* Sets up the doubly circular linked  list
 */
-Thread scheduler(Thread *thread) {
-
-	return thread;
-}
-
-//todo
-/*
-* Add a new function printThreadStates which prints out the thread ids
-* and the state of each thread in the order they were created.
-* The const NUMTHREADS is the number of threads created.
-*/
-void printThreadStates(Thread *threads, int length) {
-	printf("\nThread States\n");
-	printf("=============\n");
-
-	for (int i = 0; i < length; i ++) {
-		int state_no = threads[i]->state;
-		printf("threadID: %i state:%s\n", threads[i]->tid, state_t_lower[state_no]);
+Thread setupLinkedList(Thread *threads, int length) {
+	for (int i = 0; i < length; i++) {
+		if (i == 0) {
+			// first node
+			threads[i]->prev = threads[length-1];
+			threads[i]->next = threads[i+1];
+		} else if (i == length-1) {
+			// last node
+			threads[i]->prev = threads[i-1];
+			threads[i]->next = threads[0];
+		} else {
+			// middle nodes
+			threads[i]->prev = threads[i-1];
+			threads[i]->next = threads[i+1];
+		}
 	}
-	printf("\n");
 }
 
 int main(void) {
 	struct thread controller;
-	Thread threads[NUMTHREADS];
 	mainThread = &controller;
 	mainThread->state = RUNNING;
 	setUpStackTransfer();
@@ -136,12 +175,15 @@ int main(void) {
 	for (int t = 0; t < NUMTHREADS; t++) {
 		threads[t] = createThread(threadFuncs[t]);
 	}
+
+	setupLinkedList(threads, NUMTHREADS);
+
 	//test
 	printThreadStates(threads, NUMTHREADS);
 	//
 	puts("switching to first thread");
 	switcher(mainThread, threads[0]);
-	puts("back to the main thread");
+	puts("\nback to the main thread");
 
 	//test
 	printThreadStates(threads, NUMTHREADS);
