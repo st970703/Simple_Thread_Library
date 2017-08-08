@@ -7,6 +7,13 @@ Description : Single thread implementation.
 
 Editor: En-Yu Mike Lee
 UPI: elee353
+All we need to add now is a way of pre-empting a running thread
+ to enable other threads to get a turn.
+ We can do this with another signal.
+ Look up how to use setitimer to send a signal to your process every 20
+milliseconds (how many microseconds? 20000).
+ This is where the assignment becomes OS dependent.
+ You must use ITIMER_VIRTUAL and its corresponding signal SIGVTALRM .
 ============================================================================
 */
 
@@ -14,9 +21,10 @@ UPI: elee353
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 #include "littleThread.h"
-#include "threads1.c" // rename this for different threads
+#include "threads3.c" // rename this for different threads
 
 Thread newThread; // the thread currently being set up
 Thread mainThread; // the main thread
@@ -24,6 +32,25 @@ struct sigaction setUpAction;
 const char* state_t[] = { "SETUP", "RUNNING", "READY", "FINISHED" };
 const char* state_t_lower[] = {  "setup", "running", "ready", "finished" };
 Thread threads[100];
+
+struct itimerval timer;
+
+/* Configure the timer to expire after 250 msec... */
+timer.it_value.tv_sec = 0;
+timer.it_value.tv_usec = 20000;
+/* ... and every 250 msec after that. */
+timer.it_interval.tv_sec = 0;
+timer.it_interval.tv_usec = 20000;
+
+//todo
+/*
+ * Add setUpTimer and a call to it,
+ * just before starting the threads in threads3.c .
+ */
+setUpTimer() {
+
+}
+
 
 //todo
 /*

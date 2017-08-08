@@ -91,6 +91,9 @@ void switcher(Thread prevThread, Thread nextThread) {
 * This is called when SIGUSR1 is received.
 */
 void associateStack(int signum) {
+    //test
+    //printf("int signum %i\n", signum);
+
     Thread localThread = newThread; // what if we don't use this local variable?
     localThread->state = READY; // now it has its stack
     if (setjmp(localThread->environment) != 0) { // will be zero if called directly
