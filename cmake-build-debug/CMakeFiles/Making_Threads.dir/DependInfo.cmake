@@ -11,6 +11,8 @@ set(CMAKE_DEPENDS_CHECK_C
   "/home/st970703/Desktop/Making-Threads/Part1/threads1.c" "/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/Making_Threads.dir/Part1/threads1.c.o"
   "/home/st970703/Desktop/Making-Threads/Part2/OSA1.2.c" "/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/Making_Threads.dir/Part2/OSA1.2.c.o"
   "/home/st970703/Desktop/Making-Threads/Part2/threads2.c" "/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/Making_Threads.dir/Part2/threads2.c.o"
+  "/home/st970703/Desktop/Making-Threads/Part3/OSA1.3.c" "/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o"
+  "/home/st970703/Desktop/Making-Threads/Part3/itemer/itemer.c" "/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.o"
   "/home/st970703/Desktop/Making-Threads/Part3/threads3.c" "/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/Making_Threads.dir/Part3/threads3.c.o"
   "/home/st970703/Desktop/Making-Threads/nbproject/private/c_standard_headers_indexer.c" "/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/Making_Threads.dir/nbproject/private/c_standard_headers_indexer.c.o"
   "/home/st970703/Desktop/Making-Threads/threads0.c" "/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles/Making_Threads.dir/threads0.c.o"

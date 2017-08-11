@@ -285,6 +285,60 @@ Part2/threads2.c.s:
 	$(MAKE) -f CMakeFiles/Making_Threads.dir/build.make CMakeFiles/Making_Threads.dir/Part2/threads2.c.s
 .PHONY : Part2/threads2.c.s
 
+Part3/OSA1.3.o: Part3/OSA1.3.c.o
+
+.PHONY : Part3/OSA1.3.o
+
+# target to build an object file
+Part3/OSA1.3.c.o:
+	$(MAKE) -f CMakeFiles/Making_Threads.dir/build.make CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o
+.PHONY : Part3/OSA1.3.c.o
+
+Part3/OSA1.3.i: Part3/OSA1.3.c.i
+
+.PHONY : Part3/OSA1.3.i
+
+# target to preprocess a source file
+Part3/OSA1.3.c.i:
+	$(MAKE) -f CMakeFiles/Making_Threads.dir/build.make CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.i
+.PHONY : Part3/OSA1.3.c.i
+
+Part3/OSA1.3.s: Part3/OSA1.3.c.s
+
+.PHONY : Part3/OSA1.3.s
+
+# target to generate assembly for a file
+Part3/OSA1.3.c.s:
+	$(MAKE) -f CMakeFiles/Making_Threads.dir/build.make CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.s
+.PHONY : Part3/OSA1.3.c.s
+
+Part3/itemer/itemer.o: Part3/itemer/itemer.c.o
+
+.PHONY : Part3/itemer/itemer.o
+
+# target to build an object file
+Part3/itemer/itemer.c.o:
+	$(MAKE) -f CMakeFiles/Making_Threads.dir/build.make CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.o
+.PHONY : Part3/itemer/itemer.c.o
+
+Part3/itemer/itemer.i: Part3/itemer/itemer.c.i
+
+.PHONY : Part3/itemer/itemer.i
+
+# target to preprocess a source file
+Part3/itemer/itemer.c.i:
+	$(MAKE) -f CMakeFiles/Making_Threads.dir/build.make CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.i
+.PHONY : Part3/itemer/itemer.c.i
+
+Part3/itemer/itemer.s: Part3/itemer/itemer.c.s
+
+.PHONY : Part3/itemer/itemer.s
+
+# target to generate assembly for a file
+Part3/itemer/itemer.c.s:
+	$(MAKE) -f CMakeFiles/Making_Threads.dir/build.make CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.s
+.PHONY : Part3/itemer/itemer.c.s
+
 Part3/threads3.o: Part3/threads3.c.o
 
 .PHONY : Part3/threads3.o
@@ -420,6 +474,12 @@ help:
 	@echo "... Part2/threads2.o"
 	@echo "... Part2/threads2.i"
 	@echo "... Part2/threads2.s"
+	@echo "... Part3/OSA1.3.o"
+	@echo "... Part3/OSA1.3.i"
+	@echo "... Part3/OSA1.3.s"
+	@echo "... Part3/itemer/itemer.o"
+	@echo "... Part3/itemer/itemer.i"
+	@echo "... Part3/itemer/itemer.s"
 	@echo "... Part3/threads3.o"
 	@echo "... Part3/threads3.i"
 	@echo "... Part3/threads3.s"

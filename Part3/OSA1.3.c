@@ -7,13 +7,6 @@ Description : Single thread implementation.
 
 Editor: En-Yu Mike Lee
 UPI: elee353
-All we need to add now is a way of pre-empting a running thread
- to enable other threads to get a turn.
- We can do this with another signal.
- Look up how to use setitimer to send a signal to your process every 20
-milliseconds (how many microseconds? 20000).
- This is where the assignment becomes OS dependent.
- You must use ITIMER_VIRTUAL and its corresponding signal SIGVTALRM .
 ============================================================================
 */
 
@@ -22,6 +15,8 @@ milliseconds (how many microseconds? 20000).
 #include <signal.h>
 #include <unistd.h>
 #include <sys/time.h>
+
+#include <string.h>
 
 #include "littleThread.h"
 #include "threads3.c" // rename this for different threads
@@ -34,25 +29,40 @@ const char* state_t_lower[] = {  "setup", "running", "ready", "finished" };
 Thread threads[100];
 
 struct itimerval timer;
+struct sigaction sa;
 
-/* Configure the timer to expire after 250 msec... */
-timer.it_value.tv_sec = 0;
-timer.it_value.tv_usec = 20000;
-/* ... and every 250 msec after that. */
-timer.it_interval.tv_sec = 0;
-timer.it_interval.tv_usec = 20000;
+//method declarations
+void associateStack(int signum);
+void setUpTimer();
+
+//todo new function for task 3
+void handle_stackTransfer(int signum) {
+    setUpAction.sa_handler = (void *) associateStack;
+    setUpAction.sa_flags = SA_ONSTACK;
+    sigaction(SIGUSR1, &setUpAction, NULL);
+}
 
 //todo
 /*
  * Add setUpTimer and a call to it,
  * just before starting the threads in threads3.c .
  */
-setUpTimer() {
+void setUpTimer() {
+  memset ( &sa, 0, sizeof ( sa ) ) ;
 
+    sa.sa_handler = &handle_stackTransfer ;
+    sigaction ( SIGVTALRM, &sa, NULL );
+
+    /* Configure the timer to expire after 20 msec... */
+    timer.it_value.tv_sec = 0;
+    timer.it_value.tv_usec = 20000;
+    /* ... and every 20 msec after that. */
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = 20000;
+
+    setitimer ( ITIMER_REAL, &timer, NULL ) ;
 }
 
-
-//todo
 /*
 * Add a new function printThreadStates which prints out the thread ids
 * and the state of each thread in the order they were created.
@@ -69,7 +79,6 @@ void printThreadStates(Thread *threads, int length) {
     printf("\n");
 }
 
-//todo
 /*
 * Add a scheduler function called scheduler to choose the next thread to run.
 * You need to ensure that all thread states are correct.
@@ -105,6 +114,7 @@ void switcher(Thread prevThread, Thread nextThread) {
         free(prevThread->stackAddr); // Wow!
         longjmp(nextThread->environment, 1);
     } else if (setjmp(prevThread->environment) == 0) { // so we can come back here
+        //like a Java catch clause?
         prevThread->state = READY;
         nextThread->state = RUNNING;
 
@@ -208,7 +218,8 @@ int main(void) {
 
     setupLinkedList(threads, NUMTHREADS);
 
-    //test
+    setUpTimer();
+
     printThreadStates(threads, NUMTHREADS);
     //
     puts("switching to first thread");
