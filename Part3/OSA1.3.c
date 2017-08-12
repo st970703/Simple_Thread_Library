@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name        : OSA1.c
+Name        : OSA1.3.c
 Author      : Robert Sheehan
 Version     : 1.0
 Description : Single thread implementation.
@@ -14,8 +14,8 @@ UPI: elee353
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
-#include <sys/time.h>
 
+#include <sys/time.h>
 #include <string.h>
 
 #include "littleThread.h"
@@ -23,23 +23,28 @@ UPI: elee353
 
 Thread newThread; // the thread currently being set up
 Thread mainThread; // the main thread
-struct sigaction setUpAction;
+
 const char* state_t[] = { "SETUP", "RUNNING", "READY", "FINISHED" };
 const char* state_t_lower[] = {  "setup", "running", "ready", "finished" };
 Thread threads[100];
+Thread currentThread; // the thread currently running
 
 struct itimerval timer;
 struct sigaction sa;
+struct sigaction setUpAction;
 
 //method declarations
 void associateStack(int signum);
 void setUpTimer();
+void setUpStackTransfer();
+void handleSignal(int signum);
+void threadYield();
 
 //todo new function for task 3
-void handle_stackTransfer(int signum) {
-    setUpAction.sa_handler = (void *) associateStack;
-    setUpAction.sa_flags = SA_ONSTACK;
-    sigaction(SIGUSR1, &setUpAction, NULL);
+void handleSignal(int signum) {
+    if(signum == SIGVTALRM) {
+        threadYield();
+    }
 }
 
 //todo
@@ -48,10 +53,9 @@ void handle_stackTransfer(int signum) {
  * just before starting the threads in threads3.c .
  */
 void setUpTimer() {
-  memset ( &sa, 0, sizeof ( sa ) ) ;
-
-    sa.sa_handler = &handle_stackTransfer ;
-    sigaction ( SIGVTALRM, &sa, NULL );
+    /* Install the signal handler for SIGVTALRM. */
+    sa.sa_handler = (void *) &handleSignal;
+    sigaction (SIGVTALRM, &sa, NULL);
 
     /* Configure the timer to expire after 20 msec... */
     timer.it_value.tv_sec = 0;
@@ -59,10 +63,12 @@ void setUpTimer() {
     /* ... and every 20 msec after that. */
     timer.it_interval.tv_sec = 0;
     timer.it_interval.tv_usec = 20000;
-
-    setitimer ( ITIMER_REAL, &timer, NULL ) ;
+    /* Start a virtual timer. It counts down whenever this process is
+      executing. */
+    setitimer (ITIMER_VIRTUAL, &timer, NULL);
 }
 
+//todo
 /*
 * Add a new function printThreadStates which prints out the thread ids
 * and the state of each thread in the order they were created.
@@ -86,6 +92,7 @@ void printThreadStates(Thread *threads, int length) {
 * threads which are waiting to run are READY and only the currently executing thread is RUNNING.
 */
 Thread scheduler(Thread thread) {
+    currentThread = thread;
     int lastNode = 0;
     if (thread->prev->tid == thread->tid) {
         if (thread->next->tid == thread->tid) {
@@ -104,21 +111,52 @@ Thread scheduler(Thread thread) {
 * Switches execution from prevThread to nextThread.
 */
 void switcher(Thread prevThread, Thread nextThread) {
+    currentThread = prevThread;
+    /*If the current thread is the only existing READY thread
+    then it continues.*/
+    if (currentThread->state == READY) {
+        if (currentThread->next->tid == currentThread->tid) {
+            if ((currentThread->prev->tid == currentThread->tid)) {
+                return; // don't switch
+            }
+        }
+    }
+
     if (prevThread->state == FINISHED) { // it has finished
+
         //remove this finished thread by changing links
         prevThread->prev->next = prevThread->next;
         prevThread->next->prev = prevThread->prev;
 
+        //start next new thread
+        currentThread = nextThread;
+
         nextThread->state = RUNNING;
         printf("\ndisposing %d\n", prevThread->tid);
         free(prevThread->stackAddr); // Wow!
-        longjmp(nextThread->environment, 1);
-    } else if (setjmp(prevThread->environment) == 0) { // so we can come back here
-        //like a Java catch clause?
-        prevThread->state = READY;
-        nextThread->state = RUNNING;
+        if (currentThread != mainThread) {
+            printThreadStates(threads, NUMTHREADS);
+        }
 
         longjmp(nextThread->environment, 1);
+    } else if (setjmp(prevThread->environment) == 0) { // so we can come back here
+
+        prevThread->state = READY;
+        nextThread->state = RUNNING;
+        // re-run current thread
+        currentThread = nextThread;
+
+        printThreadStates(threads, NUMTHREADS);
+
+        longjmp(nextThread->environment, 1);
+    }
+}
+
+void threadYield() {
+    if (currentThread->next->state == READY) {
+        //re-schedule current thread
+        Thread tempThread = scheduler(currentThread);
+        switcher(currentThread,tempThread);
     }
 }
 
@@ -131,7 +169,7 @@ void associateStack(int signum) {
     Thread localThread = newThread; // what if we don't use this local variable?
     localThread->state = READY; // now it has its stack
     if (setjmp(localThread->environment) != 0) { // will be zero if called directly
-        printThreadStates(threads, NUMTHREADS);
+
         (localThread->start)();
         localThread->state = FINISHED;
 
@@ -217,11 +255,10 @@ int main(void) {
     }
 
     setupLinkedList(threads, NUMTHREADS);
+    printThreadStates(threads, NUMTHREADS);
 
     setUpTimer();
 
-    printThreadStates(threads, NUMTHREADS);
-    //
     puts("switching to first thread");
     switcher(mainThread, threads[0]);
     puts("\nback to the main thread");

@@ -19,7 +19,7 @@
 struct sigaction sa;
 struct itimerval timer;
 
-void timer_handler (int signum)
+void test_timer (int signum)
 {
     static int count = 0;
     struct timeval ts;
@@ -30,24 +30,28 @@ void timer_handler (int signum)
     printf ("%d.%06d: timer expired %d times\n", ts.tv_sec, ts.tv_usec, count);
 }
 
-int main ()
-{
+void setUpTimer() {
     /* Install timer_handler as the signal handler for SIGVTALRM. */
-    memset (&sa, 0, sizeof (sa));
-    sa.sa_handler = &timer_handler;
+    //memset (&sa, 0, sizeof (sa));
+    sa.sa_handler = &test_timer;
     sigaction (SIGVTALRM, &sa, NULL);
 
     /* Configure the timer to expire after 20 msec... */
     timer.it_value.tv_sec = 0;
-    timer.it_value.tv_usec = 200000;
+    timer.it_value.tv_usec = 20000;
     /* ... and every 20 msec after that. */
     timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_usec = 200000;
+    timer.it_interval.tv_usec = 20000;
     /* Start a virtual timer. It counts down whenever this process is
       executing. */
     setitimer (ITIMER_VIRTUAL, &timer, NULL);
+}
+
+int main ()
+{
+    setUpTimer();
 
     /* Do busy work. */
-    while (1);
+    while(1 ==1);
 }
 
