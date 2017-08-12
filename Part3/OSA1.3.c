@@ -42,6 +42,7 @@ void threadYield();
 
 //todo new function for task 3
 void handleSignal(int signum) {
+    // check if signum is SIGVTALRM
     if(signum == SIGVTALRM) {
         threadYield();
     }
@@ -166,16 +167,20 @@ void threadYield() {
 * This is called when SIGUSR1 is received.
 */
 void associateStack(int signum) {
-    Thread localThread = newThread; // what if we don't use this local variable?
-    localThread->state = READY; // now it has its stack
-    if (setjmp(localThread->environment) != 0) { // will be zero if called directly
+    // check if signum is SIGUSR1
+    if (signum == SIGUSR1) {
+        Thread localThread = newThread; // what if we don't use this local variable?
+        localThread->state = READY; // now it has its stack
+        if (setjmp(localThread->environment) != 0) { // will be zero if called directly
 
-        (localThread->start)();
-        localThread->state = FINISHED;
+            (localThread->start)();
+            localThread->state = FINISHED;
 
-        Thread nextThread = scheduler(localThread);
-        switcher(localThread, nextThread); // at the moment back to the main thread
+            Thread nextThread = scheduler(localThread);
+            switcher(localThread, nextThread); // at the moment back to the main thread
+        }
     }
+
 }
 
 /*
