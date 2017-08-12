@@ -249,33 +249,9 @@ CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.o.provides: CMakeFiles/Makin
 CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.o.provides.build: CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.o
 
 
-CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o: CMakeFiles/Making_Threads.dir/flags.make
-CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o: ../Part3/OSA1.3.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o   -c /home/st970703/Desktop/Making-Threads/Part3/OSA1.3.c
-
-CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/st970703/Desktop/Making-Threads/Part3/OSA1.3.c > CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.i
-
-CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/st970703/Desktop/Making-Threads/Part3/OSA1.3.c -o CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.s
-
-CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o.requires:
-
-.PHONY : CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o.requires
-
-CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o.provides: CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o.requires
-	$(MAKE) -f CMakeFiles/Making_Threads.dir/build.make CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o.provides.build
-.PHONY : CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o.provides
-
-CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o.provides.build: CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o
-
-
 CMakeFiles/Making_Threads.dir/Part3/threads3.c.o: CMakeFiles/Making_Threads.dir/flags.make
 CMakeFiles/Making_Threads.dir/Part3/threads3.c.o: ../Part3/threads3.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/Making_Threads.dir/Part3/threads3.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/Making_Threads.dir/Part3/threads3.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Making_Threads.dir/Part3/threads3.c.o   -c /home/st970703/Desktop/Making-Threads/Part3/threads3.c
 
 CMakeFiles/Making_Threads.dir/Part3/threads3.c.i: cmake_force
@@ -299,7 +275,7 @@ CMakeFiles/Making_Threads.dir/Part3/threads3.c.o.provides.build: CMakeFiles/Maki
 
 CMakeFiles/Making_Threads.dir/OSA1.c.o: CMakeFiles/Making_Threads.dir/flags.make
 CMakeFiles/Making_Threads.dir/OSA1.c.o: ../OSA1.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/Making_Threads.dir/OSA1.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/Making_Threads.dir/OSA1.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Making_Threads.dir/OSA1.c.o   -c /home/st970703/Desktop/Making-Threads/OSA1.c
 
 CMakeFiles/Making_Threads.dir/OSA1.c.i: cmake_force
@@ -323,7 +299,7 @@ CMakeFiles/Making_Threads.dir/OSA1.c.o.provides.build: CMakeFiles/Making_Threads
 
 CMakeFiles/Making_Threads.dir/threads0.c.o: CMakeFiles/Making_Threads.dir/flags.make
 CMakeFiles/Making_Threads.dir/threads0.c.o: ../threads0.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/Making_Threads.dir/threads0.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/Making_Threads.dir/threads0.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Making_Threads.dir/threads0.c.o   -c /home/st970703/Desktop/Making-Threads/threads0.c
 
 CMakeFiles/Making_Threads.dir/threads0.c.i: cmake_force
@@ -355,7 +331,6 @@ Making_Threads_OBJECTS = \
 "CMakeFiles/Making_Threads.dir/Part2/OSA1.2.c.o" \
 "CMakeFiles/Making_Threads.dir/Part2/threads2.c.o" \
 "CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.o" \
-"CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o" \
 "CMakeFiles/Making_Threads.dir/Part3/threads3.c.o" \
 "CMakeFiles/Making_Threads.dir/OSA1.c.o" \
 "CMakeFiles/Making_Threads.dir/threads0.c.o"
@@ -371,13 +346,12 @@ Making_Threads: CMakeFiles/Making_Threads.dir/Part1/threads1.c.o
 Making_Threads: CMakeFiles/Making_Threads.dir/Part2/OSA1.2.c.o
 Making_Threads: CMakeFiles/Making_Threads.dir/Part2/threads2.c.o
 Making_Threads: CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.o
-Making_Threads: CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o
 Making_Threads: CMakeFiles/Making_Threads.dir/Part3/threads3.c.o
 Making_Threads: CMakeFiles/Making_Threads.dir/OSA1.c.o
 Making_Threads: CMakeFiles/Making_Threads.dir/threads0.c.o
 Making_Threads: CMakeFiles/Making_Threads.dir/build.make
 Making_Threads: CMakeFiles/Making_Threads.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable Making_Threads"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/st970703/Desktop/Making-Threads/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable Making_Threads"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Making_Threads.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -393,7 +367,6 @@ CMakeFiles/Making_Threads.dir/requires: CMakeFiles/Making_Threads.dir/Part1/thre
 CMakeFiles/Making_Threads.dir/requires: CMakeFiles/Making_Threads.dir/Part2/OSA1.2.c.o.requires
 CMakeFiles/Making_Threads.dir/requires: CMakeFiles/Making_Threads.dir/Part2/threads2.c.o.requires
 CMakeFiles/Making_Threads.dir/requires: CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.o.requires
-CMakeFiles/Making_Threads.dir/requires: CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o.requires
 CMakeFiles/Making_Threads.dir/requires: CMakeFiles/Making_Threads.dir/Part3/threads3.c.o.requires
 CMakeFiles/Making_Threads.dir/requires: CMakeFiles/Making_Threads.dir/OSA1.c.o.requires
 CMakeFiles/Making_Threads.dir/requires: CMakeFiles/Making_Threads.dir/threads0.c.o.requires

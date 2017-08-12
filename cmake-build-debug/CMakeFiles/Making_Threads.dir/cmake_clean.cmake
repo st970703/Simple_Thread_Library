@@ -7,7 +7,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/Making_Threads.dir/Part2/OSA1.2.c.o"
   "CMakeFiles/Making_Threads.dir/Part2/threads2.c.o"
   "CMakeFiles/Making_Threads.dir/Part3/itemer/itemer.c.o"
-  "CMakeFiles/Making_Threads.dir/Part3/OSA1.3.c.o"
   "CMakeFiles/Making_Threads.dir/Part3/threads3.c.o"
   "CMakeFiles/Making_Threads.dir/OSA1.c.o"
   "CMakeFiles/Making_Threads.dir/threads0.c.o"

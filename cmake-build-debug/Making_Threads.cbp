@@ -108,9 +108,6 @@
 		<Unit filename="/home/st970703/Desktop/Making-Threads/Part2/threads2.c">
 			<Option target="Making_Threads"/>
 		</Unit>
-		<Unit filename="/home/st970703/Desktop/Making-Threads/Part3/OSA1.3.c">
-			<Option target="Making_Threads"/>
-		</Unit>
 		<Unit filename="/home/st970703/Desktop/Making-Threads/Part3/itemer/itemer.c">
 			<Option target="Making_Threads"/>
 		</Unit>

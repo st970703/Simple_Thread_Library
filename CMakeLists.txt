@@ -15,7 +15,6 @@ set(SOURCE_FILES
         Part2/threads2.c
         Part3/itemer/itemer.c
         Part3/littleThread.h
-        Part3/OSA1.3.c
         Part3/threads3.c
         littleThread.h
         OSA1.c
