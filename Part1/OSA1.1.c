@@ -122,7 +122,9 @@ Thread createThread(void (startFunc)()) {
 * e.g. Threads which have completed have their state changed to FINISHED,
 * threads which are waiting to run are READY and only the currently executing thread is RUNNING.
 */
-scheduler() {}
+scheduler() {
+	//circularly linked list?
+}
 
 //todo
 /*

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>littleThread.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="Part1" displayName="Part1" projectFiles="true">
+        <itemPath>Part1/OSA1.1.c</itemPath>
+        <itemPath>Part1/littleThread.h</itemPath>
+        <itemPath>Part1/threads1.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Part2" displayName="Part2" projectFiles="true">
+        <itemPath>Part2/littleThread.h</itemPath>
+        <itemPath>Part2/threads2.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Part3" displayName="Part3" projectFiles="true">
+        <itemPath>Part3/littleThread.h</itemPath>
+        <itemPath>Part3/threads3.c</itemPath>
+      </logicalFolder>
+      <itemPath>OSA1.c</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>threads0.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>Part1</Elem>
+    <Elem>Part2</Elem>
+    <Elem>Part3</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+      </compileType>
+      <item path="OSA1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Part1/OSA1.1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Part1/littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/threads1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Part2/littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part2/threads2.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Part3/littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part3/threads3.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="threads0.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="OSA1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Part1/OSA1.1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Part1/littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part1/threads1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Part2/littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part2/threads2.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="Part3/littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Part3/threads3.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="littleThread.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="threads0.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
