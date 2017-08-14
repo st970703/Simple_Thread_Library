@@ -1,0 +1,30 @@
+Thread States
+=============
+threadID: 0 state:ready
+threadID: 1 state:ready
+switching to first thread
+Thread States
+=============
+threadID: 0 state:running
+threadID: 1 state:ready
+hi
+hi
+hi
+hi
+hi
+disposing 0
+Thread States
+=============
+threadID: 0 state:finished
+threadID: 1 state:running
+bye
+bye
+bye
+bye
+bye
+disposing 1
+back to the main thread
+Thread States
+=============
+threadID: 0 state:finished
+threadID: 1 state:finished

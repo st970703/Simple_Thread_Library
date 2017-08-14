@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name        : OSA1.1.c
+Name        : OSA1.3.c
 Author      : Robert Sheehan
 Version     : 1.0
 Description : Single thread implementation.
@@ -15,15 +15,59 @@ UPI: elee353
 #include <signal.h>
 #include <unistd.h>
 
+#include <sys/time.h>
+#include <string.h>
+
 #include "littleThread.h"
-#include "threads1.c" // rename this for different threads
+#include "threads3.c" // rename this for different threads
 
 Thread newThread; // the thread currently being set up
 Thread mainThread; // the main thread
-struct sigaction setUpAction;
+
 const char* state_t[] = { "SETUP", "RUNNING", "READY", "FINISHED" };
 const char* state_t_lower[] = {  "setup", "running", "ready", "finished" };
 Thread threads[100];
+Thread currentThread; // the thread currently running
+
+struct itimerval timer;
+struct sigaction sa;
+struct sigaction setUpAction;
+
+//method declarations
+void associateStack(int signum);
+void setUpTimer();
+void setUpStackTransfer();
+void handleSignal(int signum);
+void threadYield();
+
+//todo new function for task 3
+void handleSignal(int signum) {
+    // check if signum is SIGVTALRM
+    if(signum == SIGVTALRM) {
+        threadYield();
+    }
+}
+
+//todo
+/*
+ * Add setUpTimer and a call to it,
+ * just before starting the threads in threads3.c .
+ */
+void setUpTimer() {
+    /* Install the signal handler for SIGVTALRM. */
+    sa.sa_handler = (void *) &handleSignal;
+    sigaction (SIGVTALRM, &sa, NULL);
+
+    /* Configure the timer to expire after 20 msec... */
+    timer.it_value.tv_sec = 0;
+    timer.it_value.tv_usec = 20000;
+    /* ... and every 20 msec after that. */
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = 20000;
+    /* Start a virtual timer. It counts down whenever this process is
+      executing. */
+    setitimer (ITIMER_VIRTUAL, &timer, NULL);
+}
 
 //todo
 /*
@@ -42,7 +86,6 @@ void printThreadStates(Thread *threads, int length) {
     printf("\n");
 }
 
-//todo
 /*
 * Add a scheduler function called scheduler to choose the next thread to run.
 * You need to ensure that all thread states are correct.
@@ -50,6 +93,7 @@ void printThreadStates(Thread *threads, int length) {
 * threads which are waiting to run are READY and only the currently executing thread is RUNNING.
 */
 Thread scheduler(Thread thread) {
+    currentThread = thread;
     int lastNode = 0;
     if (thread->prev->tid == thread->tid) {
         if (thread->next->tid == thread->tid) {
@@ -68,20 +112,52 @@ Thread scheduler(Thread thread) {
 * Switches execution from prevThread to nextThread.
 */
 void switcher(Thread prevThread, Thread nextThread) {
+    currentThread = prevThread;
+    /*If the current thread is the only existing READY thread
+    then it continues.*/
+    if (currentThread->state == READY) {
+        if (currentThread->next->tid == currentThread->tid) {
+            if ((currentThread->prev->tid == currentThread->tid)) {
+                return; // don't switch
+            }
+        }
+    }
+
     if (prevThread->state == FINISHED) { // it has finished
+
         //remove this finished thread by changing links
         prevThread->prev->next = prevThread->next;
         prevThread->next->prev = prevThread->prev;
 
+        //start next new thread
+        currentThread = nextThread;
+
         nextThread->state = RUNNING;
         printf("\ndisposing %d\n", prevThread->tid);
         free(prevThread->stackAddr); // Wow!
-        longjmp(nextThread->environment, 1);
-    } else if (setjmp(prevThread->environment) == 0) { // so we can come back here
-        prevThread->state = READY;
-        nextThread->state = RUNNING;
+        if (currentThread != mainThread) {
+            printThreadStates(threads, NUMTHREADS);
+        }
 
         longjmp(nextThread->environment, 1);
+    } else if (setjmp(prevThread->environment) == 0) { // so we can come back here
+
+        prevThread->state = READY;
+        nextThread->state = RUNNING;
+        // re-run current thread
+        currentThread = nextThread;
+
+        printThreadStates(threads, NUMTHREADS);
+
+        longjmp(nextThread->environment, 1);
+    }
+}
+
+void threadYield() {
+    if (currentThread->next->state == READY) {
+        //re-schedule current thread
+        Thread tempThread = scheduler(currentThread);
+        switcher(currentThread,tempThread);
     }
 }
 
@@ -91,16 +167,20 @@ void switcher(Thread prevThread, Thread nextThread) {
 * This is called when SIGUSR1 is received.
 */
 void associateStack(int signum) {
-    Thread localThread = newThread; // what if we don't use this local variable?
-    localThread->state = READY; // now it has its stack
-    if (setjmp(localThread->environment) != 0) { // will be zero if called directly
-        printThreadStates(threads, NUMTHREADS);
-        (localThread->start)();
-        localThread->state = FINISHED;
+    // check if signum is SIGUSR1
+    if (signum == SIGUSR1) {
+        Thread localThread = newThread; // what if we don't use this local variable?
+        localThread->state = READY; // now it has its stack
+        if (setjmp(localThread->environment) != 0) { // will be zero if called directly
 
-        Thread nextThread = scheduler(localThread);
-        switcher(localThread, nextThread); // at the moment back to the main thread
+            (localThread->start)();
+            localThread->state = FINISHED;
+
+            Thread nextThread = scheduler(localThread);
+            switcher(localThread, nextThread); // at the moment back to the main thread
+        }
     }
+
 }
 
 /*
@@ -125,17 +205,6 @@ Thread createThread(void (startFunc)()) {
     Thread thread;
     stack_t threadStack;
 
-<<<<<<< HEAD
-//todo
-/*
-* Add a scheduler function called scheduler to choose the next thread to run.
-* You need to ensure that all thread states are correct.
-* e.g. Threads which have completed have their state changed to FINISHED,
-* threads which are waiting to run are READY and only the currently executing thread is RUNNING.
-*/
-scheduler() {
-	//circularly linked list?
-=======
     if ((thread = malloc(sizeof(struct thread))) == NULL) {
         perror("allocating thread");
         exit(EXIT_FAILURE);
@@ -157,7 +226,6 @@ scheduler() {
     newThread = thread; // So that the signal handler can find this thread
     kill(getpid(), SIGUSR1); // Send the signal. After this everything is set.
     return thread;
->>>>>>> 81193e9720cd8b1b7e42fe78b595b18f62c2ff4e
 }
 
 /*
@@ -192,10 +260,10 @@ int main(void) {
     }
 
     setupLinkedList(threads, NUMTHREADS);
-
-    //test
     printThreadStates(threads, NUMTHREADS);
-    //
+
+    setUpTimer();
+
     puts("switching to first thread");
     switcher(mainThread, threads[0]);
     puts("\nback to the main thread");

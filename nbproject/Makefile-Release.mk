@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/OSA1.o \
+	${OBJECTDIR}/Part1/OSA1.1.backup.o \
 	${OBJECTDIR}/Part1/OSA1.1.o \
 	${OBJECTDIR}/Part1/threads1.o \
 	${OBJECTDIR}/Part2/threads2.o \
@@ -72,6 +73,11 @@ ${OBJECTDIR}/OSA1.o: OSA1.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/OSA1.o OSA1.c
+
+${OBJECTDIR}/Part1/OSA1.1.backup.o: Part1/OSA1.1.backup.c
+	${MKDIR} -p ${OBJECTDIR}/Part1
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Part1/OSA1.1.backup.o Part1/OSA1.1.backup.c
 
 ${OBJECTDIR}/Part1/OSA1.1.o: Part1/OSA1.1.c
 	${MKDIR} -p ${OBJECTDIR}/Part1

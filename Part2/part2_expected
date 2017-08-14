@@ -1,0 +1,74 @@
+Thread States
+=============
+threadID: 0 state:ready
+threadID: 1 state:ready
+threadID: 2 state:ready
+
+switching to first thread
+
+Thread States
+=============
+threadID: 0 state:running
+threadID: 1 state:ready
+threadID: 2 state:ready
+
+hi
+
+Thread States
+=============
+threadID: 0 state:ready
+threadID: 1 state:running
+threadID: 2 state:ready
+
+bye
+
+Thread States
+=============
+threadID: 0 state:ready
+threadID: 1 state:ready
+threadID: 2 state:running
+
+bye
+
+Thread States
+=============
+threadID: 0 state:running
+threadID: 1 state:ready
+threadID: 2 state:ready
+hi
+Thread States
+=============
+threadID: 0 state:ready
+threadID: 1 state:running
+threadID: 2 state:ready
+bye
+Thread States
+=============
+threadID: 0 state:ready
+threadID: 1 state:ready
+threadID: 2 state:running
+bye
+Thread States
+=============
+threadID: 0 state:running
+threadID: 1 state:ready
+threadID: 2 state:ready
+disposing 0
+Thread States
+=============
+threadID: 0 state:finished
+threadID: 1 state:running
+threadID: 2 state:ready
+disposing 1
+Thread States
+=============
+threadID: 0 state:finished
+threadID: 1 state:finished
+threadID: 2 state:running
+disposing 2
+back to the main thread
+Thread States
+=============
+threadID: 0 state:finished
+threadID: 1 state:finished
+threadID: 2 state:finished
