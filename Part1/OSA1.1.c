@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name        : OSA1.1.c
+Name        : OSA1.c
 Author      : Robert Sheehan
 Version     : 1.0
 Description : Single thread implementation.
@@ -125,17 +125,6 @@ Thread createThread(void (startFunc)()) {
     Thread thread;
     stack_t threadStack;
 
-<<<<<<< HEAD
-//todo
-/*
-* Add a scheduler function called scheduler to choose the next thread to run.
-* You need to ensure that all thread states are correct.
-* e.g. Threads which have completed have their state changed to FINISHED,
-* threads which are waiting to run are READY and only the currently executing thread is RUNNING.
-*/
-scheduler() {
-	//circularly linked list?
-=======
     if ((thread = malloc(sizeof(struct thread))) == NULL) {
         perror("allocating thread");
         exit(EXIT_FAILURE);
@@ -157,7 +146,6 @@ scheduler() {
     newThread = thread; // So that the signal handler can find this thread
     kill(getpid(), SIGUSR1); // Send the signal. After this everything is set.
     return thread;
->>>>>>> 81193e9720cd8b1b7e42fe78b595b18f62c2ff4e
 }
 
 /*
