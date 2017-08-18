@@ -5,7 +5,7 @@ There is a comment saying " Wow! " in the switcher function in OSA1.c . This is 
 
 The free() function is not normally re-entrant and uses a static data structure to track free memory blocks.
 
-The free() function call here should be used with caution as it can accidentally free the stack of a process. This will corrupt the thread switching mechanism as the information stored in the stack will be permanently lost.
+The free() function call here should be used with caution as it can accidentally free the stack of a thread. This will corrupt the thread switching mechanism as the information stored in the stack will be permanently lost.
 
 Question 2
 Why are the time-consuming calculations in threads3.c required in order to demonstrate the effectiveness of the pre-emptive scheduler?
