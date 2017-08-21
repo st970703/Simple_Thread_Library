@@ -25,6 +25,5 @@ If we don't block the signals before calling the rand() function, undefined beha
 These strange behaviours can happen if we do not block the signals before calling the rand() function.
 The function rand() is not reentrant, since it uses a hidden state that is modified on each call.
 When a thread is interrupted, the rand() call can be frozen and the seed value may not be protected by encapsulation. Other threads may have access to this seed value concurrently. This is undesirable because if too many threads access this seed value it may run into a deadlock.
-The deadlock is caused by multiple theads trying to access the same resource, and they are all waiting for each other to finish.
+The deadlock is caused by multiple threads trying to access the same resource, and they are all waiting for each other to finish.
 In addition, if the function rand() is called multiple times within a certain granularity period, the random number generator will be re-seeded with the same value.
-
